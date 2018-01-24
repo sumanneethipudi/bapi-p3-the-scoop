@@ -1,0 +1,72 @@
+let database = {
+  users: {},
+  articles: {},
+  comments: {},
+  nextArticleId: 1,
+  nextCommentId: 1	
+};
+
+const routes = {	
+  '/users': {
+    'POST': getOrCreateUser
+  },
+  '/users/:username': {
+    'GET': getUser
+  },
+  '/articles': {
+    'GET': getArticles,
+    'POST': createArticle
+  },
+  '/articles/:id': {
+    'GET': getArticle,
+    'PUT': updateArticle,
+    'DELETE': deleteArticle
+  },
+  '/articles/:id/upvote': {
+    'PUT': upvoteArticle
+  },
+  '/articles/:id/downvote': {
+    'PUT': downvoteArticle
+  }
+  '/comments': {
+  'POST': createComment
+},
+   '/comments/:id': {
+     'PUT': updateComment,
+      'DELETE': deleteComment
+   },
+   '/comments/:id/upvote': {
+  'PUT': upvoteComment
+},  
+  '/comments/:id/downvote': {
+  'PUT': downvoteComment
+},
+};
+
+function createComment(comment) {
+  const requestComment = request.body && request.body.comment;
+  const response = {};
+
+  if (requestComment && requestComment.url &&
+      requestComment.username && database.users[requestComment.username]) {
+    const comment = {
+      id: database.nextCommentId++,
+      body: database.body,
+      url: requestComment.url,
+      username: requestComment.username,
+      articleIds: ,
+      upvotedBy: [],
+      downvotedBy: []
+    };
+
+    database.articles[article.id] = article;
+    database.users[article.username].articleIds.push(article.id);
+
+    response.body = {article: article};
+    response.status = 201;
+  } else {
+    response.status = 400;
+  }
+
+  return response;
+}
